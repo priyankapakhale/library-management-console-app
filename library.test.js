@@ -3,12 +3,12 @@ const data = require("./data.json");
 describe("view books in library", () => {
     it("should display list of books in library when there are books present in the library", () => {
         const library = new Library(data);
-        expect(library).toHaveLength(8);
+        expect(library.showBooks()).toHaveLength(8);
     })
 
     it("should display an empty library, when there are no books present in the library", () => {
         const library = new Library();
-        expect(library).toHaveLength(0);
+        expect(library.showBooks()).toHaveLength(0);
     })
 })
 
@@ -28,7 +28,7 @@ describe("borrow a book from the library", () => {
 
         const library = new Library(data);
         library.borrowBook(1, borrowedList);
-        const previousQuantity = library.findbook(1).quantity;
+        const previousQuantity = library.findBook(1).quantity;
 
         const newQuantity = library.findBook(1).quantity;
         expect(newQuantity).toBe(previousQuantity - 1);
@@ -40,7 +40,7 @@ describe("borrow a book from the library", () => {
         const library = new Library(data);
         library.borrowBook(2, borrowedList);
 
-        const book = library.findbook(2);
+        const book = library.findBook(2);
         expect(book).toBeNull();
         expect(library.showBooks()).toHaveLength(7);
     })
@@ -58,7 +58,7 @@ describe("borrow a book from the library", () => {
         const previousQuantity = library.findBook(1).quantity;
 
         library.borrowBook(1, borrowedList);
-        const newQuantity = library.findbook(1).quantity;
+        const newQuantity = library.findBook(1).quantity;
 
         expect(previousQuantity).toEqual(newQuantity);
     })
@@ -69,7 +69,7 @@ describe("borrow a book from the library", () => {
         const previousQuantity = library.findBook(3).quantity;
 
         library.borrowBook(3, borrowedList);
-        const newQuantity = library.findbook(3).quantity;
+        const newQuantity = library.findBook(3).quantity;
 
         expect(previousQuantity).toBe(newQuantity);
     })
