@@ -5,7 +5,6 @@ class Library {
     }
 
     showBooks() {
-        console.log("\nHere's the list of books present in the library: \n");
         return this.books;
     }
 
