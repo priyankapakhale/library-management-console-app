@@ -1,0 +1,22 @@
+{
+  "name": "library-management-console-app",
+  "version": "1.0.0",
+  "description": "console app for library management",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyankapakhale/library-management-console-app.git"
+  },
+  "author": "Priyanka Pakhale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priyankapakhale/library-management-console-app/issues"
+  },
+  "homepage": "https://github.com/priyankapakhale/library-management-console-app#readme",
+  "dependencies": {
+    "jest": "^29.5.0"
+  }
+}
