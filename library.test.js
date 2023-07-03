@@ -1,4 +1,5 @@
 const data = require("./data.json");
+const Library = require('./library');
 
 describe("view books in library", () => {
     it("should display list of books in library when there are books present in the library", () => {
@@ -41,7 +42,7 @@ describe("borrow a book from the library", () => {
         library.borrowBook(2, borrowedList);
 
         const book = library.findBook(2);
-        expect(book).toBeNull();
+        expect(book).toBe(undefined);
         expect(library.showBooks()).toHaveLength(7);
     })
 
