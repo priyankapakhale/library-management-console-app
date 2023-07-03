@@ -1,29 +1,89 @@
 const data = require("./data.json");
 
 describe("view books in library", () => {
-    it("should display list of books in library when there are books present in the library", () => { })
+    it("should display list of books in library when there are books present in the library", () => {
+        const library = new Library(data);
+        expect(library).toHaveLength(8);
+    })
 
-    it("should display an empty library, when there are no books present in the library", () => {})
+    it("should display an empty library, when there are no books present in the library", () => {
+        const library = new Library();
+        expect(library).toHaveLength(0);
+    })
 })
 
 describe("borrow a book from the library", () => {
-    it("when user borrows a book from the library, that book is added to the borrowed list", () => { })
+    it("when user borrows a book from the library, that book is added to the borrowed list", () => {
+        let borrowedList = [];
+        expect(borrowedList).toHaveLength(0);
 
-    it("when user borrows a book from the library which has more than 1 copies, the book's quantity gets decreased by 1", () => { })
+        const library = new Library(data);
+        library.borrowBook(1, borrowedList);
+        expect(borrowedList).toHaveLength(1);
+        expect(borrowedList).toContain(1);
+    })
 
-    it("when user borrows a book from the library which has only 1 copy, that book gets removed from the library", () => { })
+    it("when user borrows a book from the library which has more than 1 copies, the book's quantity gets decreased by 1", () => {
+        let borrowedList = [];
 
-    it("when user tries to borrow a book which is already present in the borrowed list, the book doesn't get added to the borrowed list", () => { })
+        const library = new Library(data);
+        library.borrowBook(1, borrowedList);
+        const previousQuantity = library.findbook(1).quantity;
 
-    it("when user tries to borrow a book which is already present in the borrowed list, the book's quantity is library doesn't change", () => { })
+        const newQuantity = library.findBook(1).quantity;
+        expect(newQuantity).toBe(previousQuantity - 1);
+    })
 
-    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, the books's quantity in library doesn't change ", () => { })
+    it("when user borrows a book from the library which has only 1 copy, that book gets removed from the library", () => { 
+        let borrowedList = [];
 
-    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, it doesn't get added to the borrowed list", () => { })
+        const library = new Library(data);
+        library.borrowBook(2, borrowedList);
 
-    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, user get's a message saying that he has reached borrow limit of 2 books", () => { })
+        const book = library.findbook(2);
+        expect(book).toBeNull();
+        expect(library.showBooks()).toHaveLength(7);
+    })
 
-    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, user get's a message saying that he has reached borrow limit of 2 books", () => { })
+    it("when user tries to borrow a book which is already present in the borrowed list, the book doesn't get added to the borrowed list", () => { 
+        let borrowedList = [1]
+        const library = new Library(data);
+        library.borrowBook(1, borrowedList);
+        expect(borrowedList).toHaveLength(1);
+    })
+
+    it("when user tries to borrow a book which is already present in the borrowed list, the book's quantity is library doesn't change", () => { 
+        let borrowedList = [1]
+        const library = new Library(data);
+        const previousQuantity = library.findBook(1).quantity;
+
+        library.borrowBook(1, borrowedList);
+        const newQuantity = library.findbook(1).quantity;
+
+        expect(previousQuantity).toEqual(newQuantity);
+    })
+
+    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, the books's quantity in library doesn't change ", () => { 
+        let borrowedList = [1, 2]
+        const library = new Library(data);
+        const previousQuantity = library.findBook(3).quantity;
+
+        library.borrowBook(3, borrowedList);
+        const newQuantity = library.findbook(3).quantity;
+
+        expect(previousQuantity).toBe(newQuantity);
+    })
+
+    it("when user tries to borrow a book from the library when borrowed list already contains 2 books, it doesn't get added to the borrowed list", () => { 
+        let borrowedList = [1, 2]
+        const library = new Library(data);
+
+        library.borrowBook(3, borrowedList);
+        
+        expect(borrowedList).toEqual([1, 2]);
+        expect(borrowedList).toHaveLength(2);
+        expect(borrowedList).not.toContain(3);
+    })
 })
 
 describe("return books to the library", () => {
