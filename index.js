@@ -22,43 +22,46 @@ console.log(`Welcome to the library. \n`);
 const borrowedBooks = [];
 const library = new Library(books);
 
+const displayBorrowedBooks = () => {
+    if (borrowedBooks.length > 0) {
+        console.log("\nHere's the list of books your borrowed: \n");
+        borrowedBooks.forEach((book, index) => {
+            console.log(`${index + 1}. ${book.title} - by ${book.author} (${book.genre})`);
+        })
+    } else {
+        console.log("\nYou haven't borrowed any books.")
+    }
+}
+
 const showMenu = () => {
     readline.question(menu, choice => {
         choice = choice.trim();
         switch (choice) {
             case 'a':
-                const books = library.showBooks();
-                if (books.length > 0) {
-                    console.log("\nHere's the list of books present in the library: \n");
-                    console.log(books);
-                }
-                else console.log("\nThere are no books present in the library");
+                library.showBooks();
                 showMenu();
                 break;
             case 'b':
+                library.showBooks();
                 readline.question("\nEnter the book id of the book you wish to borrow : ", id => {
-                    const bookId = parseInt(id.trim());
-                    library.borrowBook(bookId, borrowedBooks);
-                    console.log("\nYour borrowed books list:", borrowedBooks);
+                    const bookIndex = parseInt(id.trim());
+                    library.borrowBook(bookIndex, borrowedBooks);
+                    displayBorrowedBooks();
                     showMenu();
                 })
                 break;
             case 'c':
+                displayBorrowedBooks();
                 readline.question("\nEnter the book id of the book you wish to return : ", id => {
-                    const bookId = parseInt(id.trim());
-                    library.returnBook(bookId, borrowedBooks);
-                    console.log("\nYour borrowed books list:", borrowedBooks);
+                    const bookIndex = parseInt(id.trim());
+                    library.returnBook(bookIndex, borrowedBooks);
+                    displayBorrowedBooks();
                     showMenu();
                 })
                 break;
 
             case 'd':
-                if (borrowedBooks.length === 0) {
-                    console.log("\nYou do not have any books currently.");
-                }
-                else {
-                    console.log("\nYour borrowed books list:", borrowedBooks);
-                }
+                displayBorrowedBooks();
                 showMenu();
                 break;
             case 'e':
