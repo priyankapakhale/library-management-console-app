@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Hitchhiker's guide to the galaxy",
+    "author": "Douglas Adams",
+    "quantity": 2,
+    "genre": "Science fiction"
+  },
+  {
+    "id": 2,
+    "title": "Death on the nile",
+    "author": "Agatha Cristie",
+    "quantity": 1,
+    "genre": "Mystery"
+  },
+  {
+    "id": 3,
+    "title": "To kill a mockingbird",
+    "author": "Harper Lee",
+    "quantity": 1,
+    "genre": "Fiction"
+  },
+  {
+    "id": 4,
+    "title": "The shining",
+    "author": "Stephen King",
+    "quantity": 20,
+    "genre": "Horror"
+  },
+  {
+    "id": 5,
+    "title": "Silent child",
+    "author": "Sarah A. Denzil",
+    "quantity": 20,
+    "genre": "Mystery"
+  },
+  {
+    "id": 6,
+    "title": "The Metamorphosis",
+    "author": "Franz Kafka",
+    "quantity": 20,
+    "genre": "Fiction"
+  },
+  {
+    "id": 7,
+    "title": "Harry Potter and the Philosopher's Stone",
+    "author": "J. K. Rowling",
+    "quantity": 20,
+    "genre": "Fantasy"
+  },
+  {
+    "id": 8,
+    "title": "Lord of the rings",
+    "author": "J. R. R. Tolkien",
+    "quantity": 4,
+    "genre": "Fantasy"
+  }
+]
