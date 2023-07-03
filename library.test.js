@@ -27,11 +27,11 @@ describe("borrow a book from the library", () => {
         let borrowedList = [];
 
         const library = new Library(data);
-        library.borrowBook(1, borrowedList);
         const previousQuantity = library.findBook(1).quantity;
-
+        library.borrowBook(1, borrowedList);
+        
         const newQuantity = library.findBook(1).quantity;
-        expect(newQuantity).toBe(previousQuantity - 1);
+        expect(newQuantity).toEqual(previousQuantity - 1);
     })
 
     it("when user borrows a book from the library which has only 1 copy, that book gets removed from the library", () => { 
@@ -83,6 +83,17 @@ describe("borrow a book from the library", () => {
         expect(borrowedList).toEqual([1, 2]);
         expect(borrowedList).toHaveLength(2);
         expect(borrowedList).not.toContain(3);
+    })
+
+    it("when user tries to borrow a book from the library which is not present in the library, the borrowed list remains same", () => { 
+        let borrowedList = [1, 2]
+        const library = new Library(data);
+
+        library.borrowBook(42, borrowedList);
+        
+        expect(borrowedList).toEqual([1, 2]);
+        expect(borrowedList).toHaveLength(2);
+        expect(borrowedList).not.toContain(42);
     })
 })
 
@@ -153,5 +164,38 @@ describe("return books to the library", () => {
         
         const newQuantity = library.findBook(1).quantity;
         expect(newQuantity).toEqual(previousQuantity + 1);
+    })
+
+    it("when user tries to return a book when borrowed list is empty, the quantity of that book in the library remains same", () => { 
+        let borrowedList = []
+        const library = new Library(data);
+
+        const previousQuantity = library.findBook(2).quantity;
+        library.returnBook(2, borrowedList);
+
+        const newQuantity = library.findBook(2).quantity;
+        expect(previousQuantity).toEqual(newQuantity);
+    })
+
+
+    it("when user tries to return a book which is not present in the borrowed list, the book doesn't get removed from borrowed list", () => { 
+        let borrowedList = [1]
+        const library = new Library(data);
+
+        library.returnBook(2, borrowedList);
+
+        expect(borrowedList).toHaveLength(1);
+        expect(borrowedList).toEqual([1]);
+    })
+
+    it("when user tries to return a book which is not present in the borrowed list, the book's quantity in the library remains same", () => { 
+        let borrowedList = [1]
+        const library = new Library(data);
+
+        const previousQuantity = library.findBook(2).quantity;
+        library.returnBook(2, borrowedList);
+        
+        const newQuantity = library.findBook(2).quantity;
+        expect(newQuantity).toEqual(previousQuantity);
     })
 })
